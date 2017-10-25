@@ -1,0 +1,15 @@
+**1. Use C5.2 Context Switching as the starting point to implement the following job. A process only switches to the next available process when the user hit one of the following keys: 's', 'f', 'h'.
+
+**2. Use C5.3 Dynamic Processes as the starting point to implement the following job.
+
+The original C5.3 sets all processes with the same priority so that they take turn to run. Recall the three behaviors of the process responding to a user hitting a key: 's' key makes the process switch to the next process. 'f' makes the process to kfork a new process, and 'x' makes the process to kexit itself. 
+
+Now we will add a new behavior to the process: accepting numerical values to set its priority. To be specific, when a user hit a number (for example '3' is hit by the user), the current running process sets its priority to the number being hit (for example, '3' to be the new priority level). The process is still running, until the user hits 's' to switch the process out. To this goal, implement a change_priority(int new_priority) function into kernel.c, which changes the running task's priority to new_priority. The dynamic readyQueue already takes into account the priority levels. The new_priority should be the value of the numerical key a user hits.
+
+To test your implementation, suppose you have three processes in readyQueue. You set current process P1 to be with priority level 7, the next one P2 to be with priority level 3, and the third one P3 with priority level 5. Now if your are in P2, if you switch processes, P1 should take over the CPU, because P1 now has a higher priority than P3.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+What to turn in (due 11:59 PM on Oct. 25):
+For each of the problem, create a folder to contain your source code and the linking file so that the grader will be able to compile and check your result.
+Hence, you will need two folders: HW3.1 and HW3.2.
+Zip the two folders into one compressed file and upload the single zipped file to BBL.
