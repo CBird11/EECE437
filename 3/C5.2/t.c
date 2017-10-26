@@ -56,11 +56,13 @@ int body()
     printf("proc %d in body() input a char [s] : ", running->pid);
     c = kgetc(); 
     printf("%c\n", c);
+
+	if(c=='s' || c=='f' || c=='h'){
+        printf("\nproc %d in body() switches to the next proc \n", running->pid);
+    	// the current process gives up CPU time, switches to the next process
+		tswitch();
+	}
     
-    printf("\n proc %d in body() switches to the next proc \n", running->pid);
-    
-    // the current process gives up CPU time, switches to the next process
-	tswitch();
   }
 }
 
@@ -121,6 +123,7 @@ int scheduler()
 
 int main()
 { 
+   char c;
    fbuf_init();
    kbd_init();
    color = WHITE;
@@ -129,6 +132,12 @@ int main()
    
    // Initialize the initial context/environment of every process
 	kernel_init();
+	while(1){
+		printf("\nP0 running input a key : ");
+		c = kgetc(); printf("%c\n", c);
+		if(c=='s' || c=='f' || c=='h')
+			tswitch();
+	}
    
    printf("The initial PROC 0 switches process\n");
    // PROC 0 runs the switching
