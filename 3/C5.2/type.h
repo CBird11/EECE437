@@ -55,14 +55,14 @@ typedef unsigned int   u32;
 #define  printf  kprintf
  
 typedef struct proc{
-	// pointer to the next PROC structure
+	struct proc *next; // pointer to the next PROC structure
   
-	// pointer to saved kernel sp
+	int *ksp; // pointer to saved kernel sp
 
-	// process status variable
+	int status;// process status variable
   
-	// process identity number
+	int pid; // process identity number
 
-	// process kernel stack (an integer array) with size of SSIZE
+	int kstack[SSIZE];// process kernel stack (an integer array) with size of SSIZE
   
 }PROC;

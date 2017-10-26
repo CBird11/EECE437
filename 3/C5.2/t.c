@@ -10,6 +10,8 @@ Copyright 2010-2017 K.C. Wang.
 #include "vid.c"
 
 #define NPROC 5
+
+
 PROC proc[NPROC], *running;
 int procsize = sizeof(PROC);
 
@@ -80,22 +82,25 @@ int kernel_init()
     // has an initial value. Initialize the following: LR, R12 - R0
     for (j=1; j<15; j++)
 		p->kstack[SSIZE-j] = 0;
-	p->kstack[SSIZE-1] = (int)body;
     
     // make the LR (which is in kstack[SSIZE-1] point to the entry of the
     // function body()
+	p->kstack[SSIZE-1] = (int)body;
     
     // point ksp to the saved R0 in kstack;
     p->ksp = &(p->kstack[SSIZE-14]);
  
     // initialize the proc next pointer
+	p->next = p+1;
     
   }
   
   // Form circular proc list by pointing the next pointer of PROC 4 to PROC 0
-  
+	proc[NPROC-1].next = &proc[0];
+
   // initialize the first running PROC to be PROC0;
-  
+	running = &proc[0];
+
   printf("kernel_init done\n");
 }
 
@@ -106,6 +111,7 @@ int scheduler()
   printf("proc %d in scheduler \n", running->pid);
   
   // make the running proc to be the one next to the current proc
+  running = running->next;
   
   
   printf("next running proc = %d\n", running->pid);
@@ -121,7 +127,9 @@ int main()
    printf("Welcome to the basic context switching for processes in Arm\n");
    
    // Initialize the initial context/environment of every process
+	kernel_init();
    
    printf("The initial PROC 0 switches process\n");
    // PROC 0 runs the switching
+	tswitch();
 }

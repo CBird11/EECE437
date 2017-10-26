@@ -60,9 +60,9 @@ tswitch:
   MSR CPSR, R0
   stmfd	sp!, {r0-r12, lr}
 
-      // r0=&running
-       // r1->runningPROC
-       // running->ksp = sp
+  LDR r0, =running    // r0=&running
+  LDR r1, [r0, #0]    // r1->runningPROC
+  str sp, [r1, #4]     // running->ksp = sp
 
   bl	scheduler
 
