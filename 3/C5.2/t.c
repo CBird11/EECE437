@@ -60,6 +60,7 @@ int body()
     printf("\n proc %d in body() switches to the next proc \n", running->pid);
     
     // the current process gives up CPU time, switches to the next process
+	tswitch();
   }
 }
 
