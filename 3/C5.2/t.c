@@ -72,10 +72,15 @@ int kernel_init()
     // initialize each of the field of the struct proc
     // pid
     // status
+	p=&proc[i];
+	p->pid = i;
+	p->status = READY; 
     
     // initialize the kernel stack: pretend that each shared CPU register
     // has an initial value. Initialize the following: LR, R12 - R0
-    
+    for (j=1; j<15; j++)
+		p->kstack[SSIZE-j] = 0;
+	p->kstack[SSIZE-1] = (int)body;
     
     // make the LR (which is in kstack[SSIZE-1] point to the entry of the
     // function body()
