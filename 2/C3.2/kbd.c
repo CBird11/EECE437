@@ -2,6 +2,8 @@
 Copyright 2010-2017 K.C. Wang
 ********************************************************************/
 
+//ADDED COMMENT
+
 #include "keymap"
 #define KCNTL 0x00
 #define KSTAT 0x04
